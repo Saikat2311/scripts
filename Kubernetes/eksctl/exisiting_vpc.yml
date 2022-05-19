@@ -1,0 +1,61 @@
+---
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name: test-test
+  region: us-west-2
+  version: "1.18"
+## Use Existing VPC
+vpc:
+  id: 
+  subnets:
+    public:
+      public-us-east-1a:
+        id: 
+      public-us-east-1b:
+        id: 
+    private:
+      private-us-east-1a:
+        id: 
+      private-us-east-1b:
+        id: 
+## Create unmanaged node group
+nodeGroups:
+- name: worker
+  labels:
+    role: general
+  instanceType: t3.small
+  desiredCapacity: 1
+  privateNetworking: true
+  ssh:
+    publicKeyName: test
+  subnets:
+  - private-us-east-1a
+  - private-us-east-1b
+##Enable Spot Instance
+# - name: spot
+#   labels:
+#     role: spot
+#   minSize: 1
+#   maxSize: 1
+#   instancesDistribution:
+#     instanceTypes:
+#     - t3.small
+#     onDemandBaseCapacity: 0
+#     onDemandPercentageAboveBaseCapacity: 0
+#     spotInstancePools: 20
+#   privateNetworking: true
+#   taints:
+#     spot: "true:NoSchedule"
+#   subnets:
+#   - private-us-east-1a
+#   - private-us-east-1b
+## Create managed node groups
+# managedNodeGroups:
+# - name: managed
+#   instanceType: t3.small
+#   desiredCapacity: 1
+#   privateNetworking: true
+#   subnets:
+#     - private-us-east-1a
+#     - private-us-east-1b

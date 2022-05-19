@@ -1,0 +1,30 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name: test-test
+  region: us-west-2
+  version: "1.21"
+nodeGroups:
+- name: worker
+  labels:
+    role: worker
+  instanceType: t3.small
+  desiredCapacity: 2
+  minSize: 2
+  maxSize: 4
+  volumeSize: 20
+  privateNetworking: true
+  ssh:
+    publicKeyName: test 
+# managedNodeGroups:
+# - name: worker-managed
+#   labels:
+#     role: worker
+#   instanceType: t3.small
+#   desiredCapacity: 1
+#   minSize: 1
+#   maxSize: 1
+#   volumeSize: 20
+#   privateNetworking: true
+#   ssh:
+#     publicKeyName: test 
